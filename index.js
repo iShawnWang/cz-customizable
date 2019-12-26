@@ -12,9 +12,15 @@ const fs = require('fs');
 const path = require('path');
 const log = require('./logger');
 const buildCommit = require('./buildCommit');
+const argv = require('yargs').argv;
 
 /* istanbul ignore next */
 const readConfigFile = () => {
+  // read cli param
+  if (argv.config) {
+    return require(argv.config);
+  }
+
   // First try to find the .cz-config.js config file
   const czConfig = findConfig.require(CZ_CONFIG_NAME, { home: false });
 
