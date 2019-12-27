@@ -16,11 +16,6 @@ const argv = require('yargs').argv;
 
 /* istanbul ignore next */
 const readConfigFile = () => {
-  // read cli param
-  if (argv.config) {
-    return require(path.resolve(argv.config, CZ_CONFIG_NAME));
-  }
-
   // First try to find the .cz-config.js config file
   const czConfig = findConfig.require(CZ_CONFIG_NAME, { home: false });
 
@@ -43,6 +38,11 @@ const readConfigFile = () => {
 
       return require(pkgPath);
     }
+  }
+
+  // read cli param
+  if (argv.config) {
+    return require(path.resolve(argv.config, CZ_CONFIG_NAME));
   }
 
   log.warn(
